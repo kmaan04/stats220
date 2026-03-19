@@ -12,9 +12,13 @@
 2. Eating
 3. Gym
 
-A meme that captures how I currently feel about my university studies is ![](https://c.tenor.com/8druEACXtX8AAAAd/tenor.gif)
+A meme that captures how I currently feel about my university studies is 
 
-This is my current favourite gif ![](https://media1.tenor.com/m/PalLwlkSyMgAAAAC/hate-it.gif)
+![](https://c.tenor.com/8druEACXtX8AAAAd/tenor.gif)
+
+This is my current favourite gif 
+
+![](https://media1.tenor.com/m/PalLwlkSyMgAAAAC/hate-it.gif)
 
 
 This will take you to my [Github profile.](https://github.com/kmaan04)
