@@ -1,0 +1,86 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+h2 {
+  color: #20b2aa;
+}
+
+h3 {
+  color: #20b2aa;
+}
+
+body {
+  background-color: #e0f7f6;
+  font-family: 'Courier New', monospace;
+  max-width: 860px;
+  margin: 40px auto;
+  padding: 40px;
+}
+
+img {
+  border-radius: 12px;
+}
+
+
+```
+## My YouTube Video Watching Habits
+This report explores my personal YouTube watching habits tracked over a period of time collected via a Google form. I tracked each video using Youtube's watch history feature. Each entry featured what type of video it was, its length, how much of the video i watched, and how engaging I found it on a scale from 1 to 5. The goal of this observational study is to find patterns in my viewing behavior, such as which types of content I watch most, and whether completing a video relates to how engaging I found it.
+```{r}
+library(tidyverse)
+
+logged_data <- read_csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vSzn2XXA0sB8kqTTEBpJqUtPJ61y2ayYY4IvRghKU9Ny2lZXsQO4hLwvCB0NrTyMyVz9_yjMs-aSkYB/pub?output=csv')
+
+latest_data <- logged_data %>%
+  rename(
+    video_type    = `What type of video is this?`,
+    minutes       = `How long is the video (minutes)`,
+    seconds       = `How long is the video (seconds)`,
+    watch_percent = `How much of the video did you watch?`,
+    engagement    = `How engaging was the video from 1-5`
+  ) %>%
+  select(-Timestamp)
+
+latest_data$total_seconds <- (latest_data$minutes * 60) + latest_data$seconds
+
+
+avg_duration <- round(mean(latest_data$total_seconds) / 60, 2)
+avg_engagement <- round(mean(latest_data$engagement), 2)
+
+```
+### Overview
+Across all `r nrow(latest_data)` videos I logged, my average engagement score was `r avg_engagement` out of 5, and the average video I watched was `r avg_duration` minutes long .
+
+### Videos Watched by Type
+```{r}
+
+latest_data %>%
+  ggplot() +
+  geom_bar(aes(x = video_type),
+           fill = "#20b2aa") +
+  labs(title = "Number of Videos Watched by Type",
+       x = "Video Type",
+       y = "Number of Videos")
+```
+
+
+### Engagement and Watch Behaviour
+
+
+```{r}
+latest_data %>%
+  ggplot() +
+  geom_bar(aes(x = engagement, fill = watch_percent),
+           position = "dodge") +
+  labs(title = "Engagement Score by Watch Percentage",
+       x = "Engagement Score (1-5)",
+       y = "Number of Videos",
+       fill = "Watch Percentage")
+```
