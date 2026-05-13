@@ -1,0 +1,113 @@
+---
+title: "My YouTube Viewing Habits: A Visual Data Story"
+output: html_document
+---
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+```
+
+```{js}
+$(function() {
+  $(".level2").css('visibility', 'hidden');
+  $(".level2").first().css('visibility', 'visible');
+  $(".container-fluid").height($(".container-fluid").height() + 300);
+  $(window).on('scroll', function() {
+    $('h2').each(function() {
+      var h2Top = $(this).offset().top - $(window).scrollTop();
+      var windowHeight = $(window).height();
+      if (h2Top >= 0 && h2Top <= windowHeight / 2) {
+        $(this).parent('div').css('visibility', 'visible');
+      } else if (h2Top > windowHeight / 2) {
+        $(this).parent('div').css('visibility', 'hidden');
+      }
+    });
+  });
+})
+```
+
+```{css, echo=FALSE}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+.figcaption { display: none; }
+
+body {
+  background-color: #0d1117;
+  font-family: 'Inter', sans-serif;
+  color: #c9d1d9;
+}
+
+.container-fluid {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 48px 32px 80px;
+}
+
+h1 {
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #f0f6fc;
+  border-bottom: 1px solid #21262d;
+  padding-bottom: 24px;
+  margin-bottom: 52px;
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffff99;
+  margin: 0 0 16px 0;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+
+.level2 {
+  background: #161b22;
+  border-radius: 10px;
+  padding: 32px 40px;
+  margin-bottom: 32px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.9;
+  color: #8b949e;
+  margin: 14px 0 0 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  margin: 24px auto 0;
+}
+```
+
+## About this data
+
+I observed and logged 50 YouTube videos across different viewing sessions, recording information about video type, length, how much I watched, and how engaging I found each video. For the most recent 24 observations, I also recorded the date and time of viewing to further explore patterns in my watching habits.
+
+## Which video types keep me most engaged?
+
+![Dot plot showing average and individual engagement scores for four video types, with Entertainment scoring highest and Lifestyle lowest](plot1.png)
+
+Entertainment videos are clearly my favorite, they consistently score the highest engagement. Lifestyle videos on the other hand just don't seem to hold my attention, scoring the lowest on average.
+
+## Do I watch certain video types to completion?
+
+![Stacked bar chart showing Gaming videos are most frequently watched to completion while Lifestyle videos are most frequently quit early](plot2.png)
+
+Gaming videos are most likely to be watched to completion, with the majority of them reaching 100%. In contrast, Lifestyle videos show the lowest completion rates, this lines up with lower engagement scores seen in the previous plot.
+
+## Does the time I watch affect my engagement?
+
+![Scatter plot of hour of day versus engagement score with a positive linear trend line, coloured by video type](plot3.png)
+
+Based on the recent 24 observations with recorded viewing times, there is a slight positive trend suggesting I tend to be more engaged with videos as the day progresses. Most of my viewing occurs between 12-11pm.
+
+## What does this tell me?
+
+Across the 50 observations, Entertainment and Gaming videos consistently showed higher engagement and completion rates, while Lifestyle videos were frequently abandoned early. Later viewing hours were also associated with slightly higher engagement, suggesting my attention and interest in content shifts throughout the day.
